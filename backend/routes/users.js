@@ -8,7 +8,7 @@ const profile_path = path.join(__dirname, "../Public/Profile");
 const transporter = require("../utils/nodemailer");
 const client = require('../utils/twilio')
 require("dotenv").config();
-const stripe = require('stripe')( process.env.STRIPE_KEY)
+const stripe = require('stripe')( process.env.STRIPE_Secret_key)
 
 
   //---------------------------------------MULTER CODE FOR IMAGE UPLOAD---------------------------------------//
