@@ -1,0 +1,108 @@
+<div class="container mt-2">
+  <div class="filter-section">
+    
+    <select id="filter-dropdown" [(ngModel)]="ridestatus">
+      <option value="-1">Select Status</option>
+      <option [value]="3">Cancelled</option>
+      <option [value]="7">Completed</option>
+    </select>
+
+    <select id="filter-dropdown" [(ngModel)]="paymentmode">
+      <option value="">Select Payment</option>
+      <option value="cash">Cash</option>
+      <option value="card">Card</option>
+    </select>
+
+    
+    <input type="date" id="search-input" [(ngModel)]="Fromdate" >
+    <input type="date" id="search-input" [(ngModel)]="Todate">
+
+    <input type="text" id="search-input" placeholder="Start Location..." [(ngModel)]="startlocation" >
+    <input type="text" id="search-input" placeholder="End Location..." [(ngModel)]="endlocation" >
+
+    
+    <div class="custom-select" >
+      <select class="m-2" id="pageSize" [(ngModel)]="limit" (change)="onPageSizeChange($event)">
+        <option value="5">Select Page</option>
+        <!-- <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option> -->
+        <option value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+      </select>
+    </div>
+    
+    <button (click)="getRideHistory()">Apply Filter</button>
+    <button (click)="clearFilter()">Clear Filter</button>
+    <button (click)="downlaodallData()"><i class="fa-solid fa-download"></i>Download</button>
+
+  </div>
+</div>
+
+
+<div class="container mt-4">
+  <!-- ----------------------------------------TABLE------------------------------------------------- -->
+  <div *ngIf="ridesArray.length === 0" class="no-records-label">
+    No Records Found
+  </div>
+  <div *ngIf="ridesArray.length > 0">
+    <div class="parentFormContainer p-4 border rounded">
+      <div id="tableContainer">
+       <div class="table-responsive">
+         <table class="table">
+           <thead class="bg-light text-dark">
+             <tr>
+               <th>Req. ID</th>
+               <!-- <th>User ID</th> -->
+               <th>Username</th>
+               <th>Pick up Date</th>
+               <th>Pick up Address</th>
+               <th>Drop off Address</th>
+               <!-- <th>Driver Name</th> -->
+               <th>Service Type</th>
+               <th>Payment</th>
+               <th>Feedback</th>
+               <th>Status</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let ride of ridesArray |  paginate: { itemsPerPage: limit, currentPage: currentPage, totalItems: count}; let i = index" (click)="openInfoDialog(ride)">
+
+                 <td>{{ ride._id }}</td>
+                 <!-- <td>{{ ride.userId }}</td> -->
+                 <td>{{ ride.userDetails.username }}</td>
+                 <td>{{ ride.rideDate }}</td>
+                 <td class="fixed-width">{{ ride.startLocation }}</td>
+                 <td class="fixed-width">{{ ride.endLocation }}</td>
+                 <!-- <td>{{ ride.driverDetails.drivername}}</td> -->
+                 <td>{{ ride.serviceType }}</td>
+                 <td>{{ ride.paymentOption }}</td>
+                 <td *ngIf="ride.feedback !== undefined && ride.feedback !== ''">{{ ride.feedback }}</td>
+                 <td *ngIf="ride.feedback === undefined || ride.feedback === ''">No feedback</td>
+                 
+
+                 <td class="badge" [ngClass]="{'badge-success': ride.ridestatus === 7, 'badge-danger': ride.ridestatus === 3}">
+                 {{ statusLabels[ride.ridestatus] || 'unknown' }}
+                 </td>
+                     
+             </tr>
+           </tbody>
+         </table>
+       </div>
+     </div>
+   </div>
+     <!-- ---------------------------------------------PAGINATION USING NGX-------------------------------------------- ----- -->
+  <div class="d-flex justify-content-center mt-4">
+    <pagination-controls  (pageChange)="onPageChange($event)" [maxSize]="5"
+        [responsive]="true"></pagination-controls>
+  </div>
+ </div>
+
+  
+
+
+

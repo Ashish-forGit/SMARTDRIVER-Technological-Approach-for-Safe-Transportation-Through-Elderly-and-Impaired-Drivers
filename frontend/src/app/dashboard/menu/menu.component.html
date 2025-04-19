@@ -1,0 +1,48 @@
+<!-- //--------------------------SIDE NAVBAR---------------------------// -->
+<mat-drawer-container autosize >
+  <mat-drawer class="bg-dark"  #drawer opened="false" mode="side" position="start" >
+    <h2 class="text-center text-light my-3">SmartDriver</h2>
+  <mat-nav-list >
+      <mat-list-item >
+          <button  color="accent" routerLink="dashboard" mat-button><mat-icon>dashboard</mat-icon> DASHBOARD</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button [matMenuTriggerFor]="lvl1master"  color="accent" mat-button><mat-icon>local_taxi</mat-icon> BOOKINGS</button>
+        <mat-menu #lvl1master="matMenu">
+          <button  color="accent" routerLink="createride"   mat-menu-item><mat-icon>calendar_month</mat-icon>Book Driver</button>
+          <button routerLink="confirmride"  mat-menu-item><mat-icon>check_circle </mat-icon>Confirmed Drivers</button>
+          <button routerLink="ridehistory"  mat-menu-item><mat-icon>history_toggle_off</mat-icon> Driver History</button>
+      </mat-menu>
+    </mat-list-item>
+
+      <mat-list-item>
+          <button routerLink="users" color="accent"  mat-button><mat-icon>person</mat-icon>USERS</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button [matMenuTriggerFor]="lvl2master" color="accent"  mat-button><mat-icon>account_circle</mat-icon>DRIVERS</button>
+        <mat-menu #lvl2master="matMenu">
+            <button routerLink="driver"  mat-menu-item><mat-icon>format_list_bulleted</mat-icon>List</button>
+            <button  routerLink="runningrequest" mat-menu-item><mat-icon>play_circle_outline</mat-icon>Running request</button>
+        </mat-menu>
+      </mat-list-item>
+      <mat-list-item>
+          <button  [matMenuTriggerFor]="lvl3master" color="accent"  mat-button><mat-icon>monetization_on</mat-icon> PRICING</button>
+          <mat-menu #lvl3master="matMenu">
+            <button  routerLink="country" mat-menu-item><mat-icon>language</mat-icon>Country</button>
+            <button routerLink="city"  mat-menu-item><mat-icon>language</mat-icon>City</button>
+            <button  routerLink="vehicletype" mat-menu-item><mat-icon> directions_car</mat-icon> Vehicle type</button>
+            <button  routerLink="vehiclepricing" mat-menu-item><mat-icon> monetization_on</mat-icon>Vehicle Pricing</button>
+        </mat-menu>
+      </mat-list-item>
+      <mat-list-item>
+          <button color="accent" routerLink="setting" mat-button><mat-icon>settings</mat-icon> SETTINGS</button>
+      </mat-list-item>
+  </mat-nav-list>
+  </mat-drawer>
+  <mat-drawer-content>
+      <div style="text-align: center;min-height: 600px;">
+        <router-outlet></router-outlet>
+      </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+

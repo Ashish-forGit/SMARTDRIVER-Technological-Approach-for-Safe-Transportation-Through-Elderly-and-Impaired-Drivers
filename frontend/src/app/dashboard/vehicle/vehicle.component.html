@@ -1,0 +1,69 @@
+<button (click)="toggleFormVisibility()" id="showbtn"> Add Vehicle</button>
+<ng-container *ngIf="AddbuttonForm">
+    <!-- Your form content goes here -->
+    <div class="parentFormContainer">
+        <div id="formContainer">
+      
+          <form class="container" [formGroup]="vehicleForm"  (ngSubmit)="addVehicle()">
+
+            <div class="mb-3">
+              <label class="form-label d-flex justify-content-start">Vehicle Type</label>
+              <input type="text" class="form-control" formControlName="vehicleName"
+                [class.is-invalid]="vehicleForm.get('vehicleName')?.invalid && (vehicleForm.get('vehicleName')?.touched || vehicleForm.get('vehicleName')?.dirty)" />
+              <div *ngIf="vehicleForm.get('vehicleName')?.invalid && (vehicleForm.get('vehicleName')?.touched || vehicleForm.get('vehicleName')?.dirty)"
+                class="invalid-feedback">
+                <div *ngIf="vehicleForm.get('vehicleName')?.errors?.['required']">Vehicle is required.</div>
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label class="form-label d-flex justify-content-start">Add Vehicle Image</label>
+              <input type="file" class="form-control" formControlName="vehicleImage" name="vehicleImage" (change)="onFileSelected($event)"/>
+            </div>
+
+            <div>
+              <button type="submit" class="btn btn-primary w-100" id="Addbutton"> Add</button>
+            </div>  
+          </form>
+        </div>
+      </div>
+  </ng-container>
+
+  <ng-container *ngIf="updateButtonForm">
+    <!-- Your form content goes here -->
+    <div class="parentFormContainer">
+        <div id="formContainer">
+          <form class="container" [formGroup]="vehicleForm"  (ngSubmit)="updateVehicle()">
+            <div class="mb-3">
+              <label class="form-label d-flex justify-content-start">Vehicle Type</label>
+              <input type="text" class="form-control" formControlName="vehicleName" />
+            </div>
+            <div class="mb-3">
+              <label class="form-label d-flex justify-content-start">Add Vehicle Image</label>
+              <input type="file" class="form-control" formControlName="vehicleImage" name="vehicleImage" (change)="onFileSelected($event)" ccept="image/png, image/jpg, image/gif, image/jpeg"/>
+            </div>
+            <div>
+              <button type="submit" class="btn btn-primary w-100" id="updateButton"> Update</button>
+            </div>  
+          </form>
+        </div>
+      </div>
+  </ng-container>
+
+
+
+  <div class="card-container container d-flex flex-wrap" >
+    <div class="m-4 card" *ngFor="let vehicle of vehiclesData">
+      <img class="card-img-top" src="http://localhost:4000/{{vehicle.vehicleImage}}" id="vehicle_image" name="image" alt="vehicle-image" />
+      <!-- <img class="card-img-top" src="http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com/{{vehicle.vehicleImage}}" id="vehicle_image" name="image" alt="vehicle-image" /> -->
+      <div class="card-body">
+        <h5 class="card-title">{{ vehicle.vehicleName }}</h5>
+        <button mat-button mat-stroked-button color="primary" (click)="editVehicle(vehicle)" color="accent"  mat-button>
+          <mat-icon>edit</mat-icon>Edit
+        </button>
+        <!-- <button mat-menu-item id="updatebtn" (click)="updateBtnClick(user)"><mat-icon>update</mat-icon>Update</button> -->
+      </div>
+    </div>
+  </div>
+  
+    

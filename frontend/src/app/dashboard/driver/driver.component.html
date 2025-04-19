@@ -1,0 +1,228 @@
+<!-- ---------------------------PAGINATION, SEARCH, SORT, LIMIT-------------------------------- -->
+<div class="container">
+  <div class="filter-section">
+    <button class="" id="showbtn"  (click)="toggleFormVisibility()"><i class="fa fa-user-plus" aria-hidden="true"> </i>&nbsp;Add Driver</button>
+    
+    <input type="text" id="search-input" placeholder="Search by ID, Name, Email, Phone..." [(ngModel)]="search">
+    <button id="searchbtn" (click)="getDriverData()">Search</button>
+    
+    <select class="m-2" id="pageSize" [(ngModel)]="limit" (change)="onPageSizeChange($event)">
+      <option value="5">Select Page</option>
+      <!-- <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option> -->
+      <option value="5">5</option>
+      <option value="10">10</option>
+      <option value="20">20</option>
+      <option value="50">50</option>
+      <option value="100">100</option>
+    </select>
+
+    <select id="filter-dropdown"  [(ngModel)]="selectedSortBy" (change)="getDriverData()">
+      <option value="name">Name</option>
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+    </select>
+
+    <select id="filter-dropdown"   [(ngModel)]="selectedSortOrder" (change)="getDriverData()">
+      <option value="desc">Sorting Order</option>
+      <option value="asc">Ascending</option>
+      <option value="desc">Descending</option>
+    </select>
+    
+  </div>
+</div>
+
+
+
+<!-- -----------------------------------------DRIVER FORM---------------------------------------------------- -->
+<div class="parentFormContainer">
+  <div id="formContainer" *ngIf="driverFormButton">
+  <h2 class="mb-3">Driver Registration</h2>
+    <form class="container" [formGroup]="driverForm" (ngSubmit)="onSubmit()">
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-start">Driver Name</label>
+        <input type="text" class="form-control" formControlName="drivername" placeholder="Enter Name"
+          [class.is-invalid]="driverForm.get('drivername')?.invalid && (driverForm.get('drivername')?.touched || driverForm.get('drivername')?.dirty)" />
+        <div *ngIf="driverForm.get('drivername')?.invalid && (driverForm.get('drivername')?.touched || driverForm.get('drivername')?.dirty)"
+          class="invalid-feedback">
+          <div *ngIf="driverForm.get('drivername')?.errors?.['required']">Name is required.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-start">Driver Email</label>
+        <input type="email" class="form-control" formControlName="driveremail"  placeholder="Enter Email"
+          [class.is-invalid]="driverForm.get('driveremail')?.invalid && (driverForm.get('driveremail')?.touched || driverForm.get('driveremail')?.dirty)" />
+        <div *ngIf="driverForm.get('driveremail')?.invalid && (driverForm.get('driveremail')?.touched || driverForm.get('driveremail')?.dirty)"
+          class="invalid-feedback">
+          <div *ngIf="driverForm.get('driveremail')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="driverForm.get('driveremail')?.errors?.['email']">Please enter a valid email.</div>
+        </div>
+      </div>
+
+      <div class="parent mb-3">
+        <label class="form-label d-flex justify-content-start">Phone Number</label>
+        <div class="phone-input w-100">
+          <select class="form-control w-25" id="country-code" name="code" #code  (change)="onSelectedCode(code.value)" formControlName="countrycode">
+            <option value="">Select</option>
+            <option [value]="code" *ngFor="let code of countrycodeArray">{{code}}</option>
+          </select>
+          <input type="tel" class="form-control" id="phone-number" formControlName="driverphone" placeholder="Enter Phone"
+            maxlength="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+            [class.is-invalid]="driverForm.get('driverphone')?.invalid && (driverForm.get('driverphone')?.touched || driverForm.get('driverphone')?.dirty)">
+          <div *ngIf="driverForm.get('driverphone')?.invalid && (driverForm.get('driverphone')?.touched || driverForm.get('driverphone')?.dirty)"
+            class="invalid-feedback text-danger">
+            <div *ngIf="driverForm.get('driverphone')?.errors?.['required']">Phone is required.</div>
+            <div *ngIf="driverForm.get('driverphone')?.errors?.['minlength']">Phone number must be 10 digits.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-start">Driving License Number</label>
+        <input type="text" class="form-control" formControlName="drivinglicense" placeholder="Enter License Number"
+          [class.is-invalid]="driverForm.get('drivinglicense')?.invalid && (driverForm.get('drivinglicense')?.touched || driverForm.get('drivinglicense')?.dirty)" />
+        <div *ngIf="driverForm.get('drivinglicense')?.invalid && (driverForm.get('drivinglicense')?.touched || driverForm.get('drivinglicense')?.dirty)"
+          class="invalid-feedback text-danger">
+          <div *ngIf="driverForm.get('drivinglicense')?.errors?.['required']">Driving license is required.</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-start">Aadhar Card Number</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="aadharcard"
+          placeholder="Enter Aadhar Number"
+          maxlength="12"
+          pattern="[0-9]{12}"
+          [class.is-invalid]="driverForm.get('aadharcard')?.invalid && (driverForm.get('aadharcard')?.touched || driverForm.get('aadharcard')?.dirty)" />
+      
+        <div *ngIf="driverForm.get('aadharcard')?.invalid && (driverForm.get('aadharcard')?.touched || driverForm.get('aadharcard')?.dirty)"
+             class="invalid-feedback text-danger">
+          <div *ngIf="driverForm.get('aadharcard')?.errors?.['required']">Aadhar number is required.</div>
+          <div *ngIf="driverForm.get('aadharcard')?.errors?.['pattern']">Aadhar number must be 12 digits.</div>
+        </div>
+      </div>
+          
+      
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-start">Choose City</label>
+        <select class="form-control w-100" id="city-name" name="city" #city (change)="onSelectedCity(city.value)" formControlName="city">
+          <option value="">Select City</option>
+          <option [value]="city._id" *ngFor="let city of citiesname ">{{city.city}}</option>
+        </select>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label d-flex justify-content-start">Upload Profile</label>
+          <input type="file" class="form-control" formControlName="profile"  name="profile" (change)="onFileSelected($event)"/>
+      </div>
+
+      <div class="form-group row mt-3">
+        <div class="d-flex justify-content-between">
+          <button type="submit" class="btn btn-success"> Submit</button>
+          <button type="button" class="btn btn-secondary" (click)="CancelForm()"> Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!-- -------------------------------------------------DRIVER TABLE------------------------------------------------ -->
+<div class="parentFormContainer">
+  <div id="tableContainer">
+  <div class="table-responsive">
+    <table class="table">
+      <thead class="bg-light text-dark">
+      <tr>
+        <th>Profile</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>City</th>
+        <th>Driver Status</th>
+        <th>Service</th>
+        <th>Action</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let driver of driverArray| paginate: { itemsPerPage: limit, currentPage: currentPage, totalItems: count}; let i = index">
+        <td><img src="http://localhost:4000/{{ driver.profile}}" alt="driver-profile"></td>
+        <!-- <td><img src="http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com/{{ driver.profile}}" alt="driver-profile"></td> -->
+        <td>{{ driver.drivername }}</td>
+        <td>{{ driver.driveremail }}</td>
+        <td>{{driver.countrycode + " " + driver.driverphone}}</td>
+        <td>{{driver.cityDetails.city}}</td>
+        <td>
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked"  [checked]="driver.status" (click)="driverStatus(driver)" [ngClass]="{'approved': driver.status, 'declined': !driver.status}">
+            {{driver.status == true ? 'Approved': "Declined"}}
+          </div>
+        </td>
+        <td *ngIf="driver.servicetype != null">{{driver.serviceDetails.vehicleName}}</td>
+        <td *ngIf="driver.servicetype == null">No Service</td>
+        <td> 
+            <button [matMenuTriggerFor]="lvl2master" color="accent"  mat-button><mat-icon>edit</mat-icon></button>
+            <mat-menu #lvl2master="matMenu">
+                <button mat-menu-item id="updatebtn" (click)="editbtn(driver)"><mat-icon>update</mat-icon>Update</button>
+                <button mat-menu-item id="deletebtn" (click)="deleteDriver(driver._id)"><mat-icon>delete_forever</mat-icon>Delete</button>
+                <button mat-menu-item  (click)="onserviceType(driver)"><mat-icon>drive_eta</mat-icon>Service Type</button>
+            </mat-menu>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+        <!-- -----------------------------------PAGINATION-------------------------------------------------- -->
+        <!-- <div class="pagination d-flex justify-content-center" id="parentpagination">
+          <div class="pagination table-responsive rounded">
+            <button class="page-link" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">
+              <i class="fa fa-angle-double-left" aria-hidden="true"></i> Previous
+            </button>
+            <ng-container *ngFor="let page of getPagesArray()">
+              <button class="page-link"
+                      [class.active]="page === currentPage"
+                      (click)="onPageChange(page)">
+                {{ page }}
+              </button>
+            </ng-container>
+            <button class="page-link" [disabled]="currentPage === totalPages" (click)="onPageChange(currentPage + 1)">
+              Next <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div> -->
+
+      </div>
+    </div>
+
+
+    <!-------------------------------------------SERVICE MODAL--------------------------------------------------- -->
+    <div class="modal-body" *ngIf="serviceModal">
+      <form class="container" [formGroup]="serviceForm" (ngSubmit)="updateService()">
+      <h1>Select Service Type</h1>
+      <select class="form-control w-100" name="vehicle" #vehicle (change)="onSelectedVehicle(vehicle.value)" formControlName="servicetype">
+        <option  value="null" disabled selected>Select Service</option>
+        <option [value]="vehicle._id" *ngFor="let vehicle of vehiclesData ">{{vehicle.vehicleName}}</option>
+      </select>
+      <div class="p-2">
+      <button class="btn btn-success m-2">Add</button>
+      <button class="btn btn-danger" (click)="closeModal()">Close</button>
+      </div>
+      </form>
+    </div>
+
+    <!-- ---------------------------------------------PAGINATION USING NGX-------------------------------------------- ----- -->
+    <div class="d-flex justify-content-center">
+      <pagination-controls previousLabel nextLabel (pageChange)="onPageChange($event)" [maxSize]="5" [responsive]="true"></pagination-controls>
+    </div>
+
+
+

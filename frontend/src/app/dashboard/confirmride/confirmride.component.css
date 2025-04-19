@@ -1,0 +1,126 @@
+.parentFormContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+#tableContainer{
+  background-color: #00000036;
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #000000;
+  width: 90%;
+  padding: 20px;
+  margin: 40px;
+}
+
+pre{
+  font-size: 13px;
+  font-weight: 900;
+  color: #000000;
+}
+
+.statusbadge{
+  /* background-color: #009900; */
+  /* background-color: #00b200; */
+  font-size: 14px;
+  padding: 5px;
+  border-radius: 3px;
+  font-weight: 900;
+}
+
+.badge-success {
+  background-color: rgb(73, 182, 0);
+  color: white;
+}
+
+.badge-info {
+  background-color: rgb(194, 0, 184);
+  color: rgb(255, 255, 255);
+}
+.badge-warning {
+  background-color: rgb(228, 102, 0);
+  color: rgb(255, 255, 255);
+}
+.badge-danger {
+  background-color: rgb(228, 34, 0);
+  color: rgb(255, 255, 255);
+}
+.badge-light {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+}
+
+.infobadge{
+  box-shadow: inset 2px 2px 4px 2px rgb(109, 98, 250);
+  border: none;
+  font-size: 16px;
+  color: black;
+  font-weight: 700;
+}
+.btn:hover{
+  box-shadow:  inset 4px 4px 4px 2px rgb(109, 98, 250);;
+  background: #ffffff;
+  color: #000000;
+}
+.fixed-width {
+  width: 100px;
+}
+
+.container {
+  /* max-width: 800px; */
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#filter-dropdown {
+  padding: 5px;
+}
+#pageSize{
+  padding: 5px;
+}
+#search-input {
+  flex-grow: 1;
+  padding: 5px;
+}
+
+#search-button {
+  padding: 10px 15px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+#searchbtn{
+  padding: 6px;
+  background-color: #7200c4;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+#filterbtn{
+  padding: 6px;
+  background-color: #06c300;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}
+#clearbtn{
+  padding: 6px;
+  background-color: #bf0000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 3px;
+}

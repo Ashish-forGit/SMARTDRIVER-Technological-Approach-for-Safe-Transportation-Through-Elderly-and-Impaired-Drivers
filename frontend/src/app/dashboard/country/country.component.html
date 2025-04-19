@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <button class="m-4 d-flex align-items-center justify-content-center" mat-button mat-stroked-button color="primary" id="showbtn"
+        (click)="toggleFormVisibility()">
+        <mat-icon>add_circle</mat-icon> Add Country
+  </button>
+  <input type="text" class="form-control m-4 w-25" id="search" placeholder="Search by Country Name..." [(ngModel)]="search">
+  <button id="searchbtn" (click)="countrySearch()">Search</button>
+
+</div>
+
+    <!-- Your form content goes here -->
+    <div class="parentFormContainer">
+        <div id="formContainer" *ngIf="AddbuttonForm">
+        <h2 class="mb-3">COUNTRY</h2>
+          <form class="container" [formGroup]="countryForm"  (ngSubmit)="OnSubmit()">
+            <div class="dropdown">
+                <select name="country" #country (change)="onSelected(country.value)">
+                  <option value="">Select Country</option>
+                  <option [value]="" *ngFor="let country of countryData ">{{country.name.common}}</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-flex justify-content-start">Country</label>
+                <input type="text" class="form-control" [readonly]="AddbuttonForm"  [value]="'countryname'" formControlName="countryname" name ="countryname" />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-flex justify-content-start">TimeZone</label>
+                <input type="text"  class="form-control" [readonly]="AddbuttonForm"  [value]="'countrytimezone'" formControlName="countrytimezone"/>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label d-flex justify-content-start">Code</label>
+                <input type="text" class="form-control" [readonly]="AddbuttonForm"  [value]="'countrycode'" formControlName="countrycode" 
+                 />
+              </div>
+              <div class="mb-3">
+                <label class="form-label d-flex justify-content-start">Currency</label>
+                <input type="text" class="form-control" [readonly]="AddbuttonForm"  [value]="countryForm.get('countrycurrency')?.value" formControlName="countrycurrency"  />
+              </div>
+              <div class="mb-3">
+                <label class="form-label d-flex justify-content-start">Flag</label>
+                <img src= "{{flag}}" style ="width: 100px;">
+              </div>
+
+              <div>
+                <button type="submit" class="btn btn-primary w-40" id="submitBtn"> Add-country</button>
+                <button class="btn btn-primary w-40" style="margin-left: 20px" (click)="cancel()"> Cancel</button> 
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <div class="card-container container">
+        <div class="container d-flex flex-wrap align-items-center" id="card-box">
+          <div class="m-4 card" *ngFor="let country of countryDataDB">
+            <img class="card-img-top" src="{{country.flagImage}}" alt="Card image cap" style="width: 200px; height: 300px;" />
+            <div class="card-body">
+              <h5 class="card-title">Country Name: {{ country.countryName }}</h5>
+              <h5 class="card-title">Timezone: {{ country.countryTimeZone }}</h5>
+              <h5 class="card-title">Country Code: {{ country.countryCode }}</h5>
+              <h5 class="card-title">Country Currency: {{ country.countryCurrency }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>

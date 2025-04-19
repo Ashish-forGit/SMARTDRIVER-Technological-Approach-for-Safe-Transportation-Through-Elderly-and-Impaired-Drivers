@@ -1,0 +1,37 @@
+
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form id="createForm" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <h3 id="loginhead">SMART DRIVER</h3>
+
+        <label for="username"style="color: aliceblue;">Username</label>
+        <input type="email" class="form-control" placeholder="Email or Phone" formControlName="email"
+        [class.is-invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)" />
+      <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)"
+        class="invalid-feedback">
+        <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+        <div *ngIf="loginForm.get('email')?.errors?.['email']">Please enter a valid email.</div>
+      </div>
+
+        <label for="password" style="color: aliceblue;">Password</label>
+        <input type="password" class="form-control" placeholder="Password"  formControlName="password"
+        [class.is-invalid]="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)">
+      <div
+        *ngIf="loginForm.controls['password'].invalid && (loginForm.controls['password'].touched || loginForm.controls['password'].dirty)"
+        class="invalid-feedback">Password is required.</div>
+
+        <div>
+          <button type="submit" class="btn btn-primary w-100" id="submitBtn">Log In</button>
+        </div>
+
+        <hr>
+        <div id="forgotDiv">
+          <a routerLinkActive="active" routerLink="/forgotpassword">forgot password ?</a>
+          or
+          <a routerLinkActive="active" routerLink="/signup">signup</a>
+        </div>
+    </form>
+</body>
