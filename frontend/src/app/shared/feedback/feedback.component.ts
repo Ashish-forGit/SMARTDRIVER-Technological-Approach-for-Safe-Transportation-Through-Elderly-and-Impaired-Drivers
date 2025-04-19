@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef , MatDialogConfig} from '@angu
 })
 export class FeedbackComponent implements OnInit{
 
-  private serverUrl = 'http://localhost:4000';
+  private serverUrl = 'https://smartdriver-technological-approach-for.onrender.com';
   // private serverUrl = 'http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com';
 
   feedbackForm!: FormGroup;
