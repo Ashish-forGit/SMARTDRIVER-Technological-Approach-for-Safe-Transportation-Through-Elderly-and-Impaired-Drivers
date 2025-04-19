@@ -69,7 +69,7 @@ app.use(feedbackRoutes)
 
 app.get("/", async (req, res) => {
   res.json({
-    Message: "Hello Rishabh, API is Working Fine!",
+    Message: "Hello Team, API is Working Fine!",
     "Login Data": `http:localhost:4000/logindata`,
     "Vehicle Data": `http:localhost:4000/vehicledata`,
   });
