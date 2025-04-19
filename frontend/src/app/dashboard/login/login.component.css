@@ -66,7 +66,7 @@ form h3{
     line-height: 42px;
     text-align: center;
     font-family: kanit;
-    color: aliceblue;
+    color: rgb(6, 6, 6);
 }
 
 label{
@@ -147,12 +147,12 @@ button:hover{
   padding-top: 10px;
 }
 #forgotDiv a{
-  color: rgb(146, 146, 146);
+  color: rgb(13, 0, 0);
   text-decoration: none;
   cursor: pointer;
 }
 #forgotDiv a:hover{
-  color: rgb(255, 255, 255);
+  color: rgb(255, 1, 1);
   align-items: center;
 }
 

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RidehistoryService {
-  private url = 'https://smartdriver-technological-approach-for.onrender.com'
+  private url = 'http://localhost:4000'
   // private serverUrl = 'http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com';
 
 
