@@ -302,14 +302,15 @@ export class RunningrequestComponent {
   }
 
   //---------------------------OPEN FEEDBACK FORM------------------------------//
-  openDialog(): void {
+  openDialog(ride: any): void {
+    console.log('Opening feedback dialog for ride:', ride);
 
     const dialogConfig = new MatDialogConfig();
     
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true; 
     dialogConfig.width = '1000px'; 
-    // dialogConfig.data = ride; 
+    dialogConfig.data = ride; 
 
     const dialogRef = this.dialog.open(FeedbackComponent, dialogConfig);
   

@@ -1,25 +1,37 @@
 const express = require('express')
 const feedbackRoutes = express.Router()
-const createrideModel = require("../models/createride");
+const FeedbackModel = require("../models/feedback");
 
 feedbackRoutes.post('/feedback', async (req,res) => {
-    // const { name, email, phone, message } = req.body;
-    // console.log("7",req.body);
-
     try {
-      const rideId = req.body.feedbackdata._id;
-      const message = req.body.formData.message;
+      const { type, rating, title, description, email, rideId } = req.body;
+      console.log("Received feedback:", { type, rating, title, description, email, rideId });
 
-      console.log("13",rideId, message)
+      // Create a new feedback document
+      const feedback = new FeedbackModel({
+        feedbackType: type,
+        rating: rating,
+        title: title,
+        description: description,
+        email: email,
+        rideId: rideId
+      });
 
-      // Check if service already exists
-      const feedback = await createrideModel.findByIdAndUpdate(rideId, {$set: {feedback: message}}, {new: true});
-        console.log("17", feedback.feedback);
-      res.status(200).json({ success: true, message: 'Feedback Submitted Successfully', feedback });
+      await feedback.save();
+      console.log("Feedback saved successfully:", feedback);
+      
+      res.status(200).json({ 
+        success: true, 
+        message: 'Feedback Submitted Successfully', 
+        feedback 
+      });
 
     } catch (error) {
-      console.log(error.message);
-      res.status(500).json({ success: false, error: error.message });
+      console.error("Error submitting feedback:", error.message);
+      res.status(500).json({ 
+        success: false, 
+        error: 'Failed to submit feedback. Please try again.' 
+      });
     }
 })
 

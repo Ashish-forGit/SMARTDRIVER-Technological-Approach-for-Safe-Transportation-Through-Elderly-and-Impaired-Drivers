@@ -1,50 +1,113 @@
-<div class="background">
-    <div class="container">
-      <div class="screen">
-        <div class="screen-header">
-          <div class="screen-header-left">
-            <div class="screen-header-button close"></div>
-            <div class="screen-header-button maximize"></div>
-            <div class="screen-header-button minimize"></div>
-          </div>
-          <div class="screen-header-right">
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-            <div class="screen-header-ellipsis"></div>
-          </div>
-        </div>
-        <div class="screen-body">
-          <div class="screen-body-item left">
-            <div class="app-title">
-              <span>CONTACT</span>
-              <span>US</span>
-            </div>
-            <div class="app-contact">CONTACT INFO : +62 81 314 928 595</div>
-          </div>
-          <div class="screen-body-item">
-            <div class="app-form">
-              <form [formGroup]="feedbackForm" (ngSubmit)="submitForm()">
-                <div class="app-form-group">
-                    <input class="app-form-control" placeholder="NAME" formControlName="name">
-                </div>
-                <div class="app-form-group">
-                    <input class="app-form-control" placeholder="EMAIL" formControlName="email">
-                </div>
-                <div class="app-form-group">
-                    <input class="app-form-control" maxlength="10" placeholder="CONTACT NO" formControlName="phone"> 
-                </div>
-                <div class="app-form-group message">
-                    <input class="app-form-control" placeholder="MESSAGE" formControlName="message">
-                </div>
-                <div class="app-form-group buttons">
-                    <button class="app-form-button" type="button" (click)="resetForm()">CANCEL</button>
-                    <button class="app-form-button info-button" type="submit" mat-button mat-dialog-close cdkFocusInitial>SEND</button>
-                </div>
-            </form>
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h3>Share Your Experience</h3>
+      <p class="subtitle">Help us improve your ride experience</p>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+        <!-- Feedback Type -->
+        <div class="form-group">
+          <label>What would you like to feedback about?</label>
+          <div class="feedback-types">
+            <div *ngFor="let type of feedbackTypes" 
+                 class="feedback-type-option"
+                 [class.selected]="feedbackForm.get('type')?.value === type.id"
+                 (click)="feedbackForm.get('type')?.setValue(type.id)">
+              <span>{{ type.label }}</span>
             </div>
           </div>
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('type')?.invalid && feedbackForm.get('type')?.touched">
+            Please select a feedback type
+          </div>
         </div>
-      </div>
+
+        <!-- Rating -->
+        <div class="form-group">
+          <label>How would you rate your experience?</label>
+          <div class="rating-container">
+            <div *ngFor="let rating of ratings" 
+                 class="rating-option"
+                 [class.selected]="feedbackForm.get('rating')?.value === rating"
+                 (click)="feedbackForm.get('rating')?.setValue(rating)">
+              <span class="rating-number">{{ rating }}</span>
+              <span class="rating-label">{{ getRatingLabel(rating) }}</span>
+            </div>
+          </div>
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('rating')?.invalid && feedbackForm.get('rating')?.touched">
+            Please provide a rating
+          </div>
+        </div>
+
+        <!-- Title -->
+        <div class="form-group">
+          <label for="title">Brief Summary</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="title" 
+            formControlName="title"
+            placeholder="Give your feedback a title"
+            [class.is-invalid]="feedbackForm.get('title')?.invalid && feedbackForm.get('title')?.touched">
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('title')?.errors?.['required'] && feedbackForm.get('title')?.touched">
+            Title is required
+          </div>
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('title')?.errors?.['minlength'] && feedbackForm.get('title')?.touched">
+            Title must be at least 5 characters
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div class="form-group">
+          <label for="description">Detailed Feedback</label>
+          <textarea 
+            class="form-control" 
+            id="description" 
+            formControlName="description"
+            placeholder="Tell us more about your experience"
+            rows="4"
+            [class.is-invalid]="feedbackForm.get('description')?.invalid && feedbackForm.get('description')?.touched">
+          </textarea>
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('description')?.errors?.['required'] && feedbackForm.get('description')?.touched">
+            Description is required
+          </div>
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('description')?.errors?.['minlength'] && feedbackForm.get('description')?.touched">
+            Description must be at least 20 characters
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email" 
+            formControlName="email"
+            placeholder="Enter your email for updates"
+            [class.is-invalid]="feedbackForm.get('email')?.invalid && feedbackForm.get('email')?.touched">
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('email')?.errors?.['required'] && feedbackForm.get('email')?.touched">
+            Email is required
+          </div>
+          <div class="invalid-feedback" *ngIf="feedbackForm.get('email')?.errors?.['email'] && feedbackForm.get('email')?.touched">
+            Please enter a valid email address
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+          <button 
+            type="submit" 
+            class="btn btn-primary w-100" 
+            [disabled]="feedbackForm.invalid || isLoading">
+            <span *ngIf="!isLoading">Submit Feedback</span>
+            <span *ngIf="isLoading">
+              <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+              Submitting...
+            </span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-  
+</div> 

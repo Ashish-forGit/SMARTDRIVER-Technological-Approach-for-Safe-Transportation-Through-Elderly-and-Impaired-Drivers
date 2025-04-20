@@ -799,6 +799,31 @@ async function initializeSocket(server) {
             },
           },
           {
+            $lookup: {
+              from: "feedbackmodels",
+              localField: "_id",
+              foreignField: "rideId",
+              as: "feedbackDetails",
+            },
+          },
+          {
+            $unwind: {
+              path: "$feedbackDetails",
+              preserveNullAndEmptyArrays: true,
+            },
+          },
+          {
+            $addFields: {
+              feedback: {
+                $cond: {
+                  if: { $eq: ["$feedbackDetails", null] },
+                  then: "",
+                  else: "$feedbackDetails.description"
+                }
+              }
+            }
+          },
+          {
             $match: {
               $and: [
                 ...matchCriteria,
