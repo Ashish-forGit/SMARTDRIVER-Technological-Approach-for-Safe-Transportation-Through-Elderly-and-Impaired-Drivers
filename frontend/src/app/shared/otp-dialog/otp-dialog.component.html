@@ -1,0 +1,18 @@
+<div class="otp-dialog">
+  <h2 mat-dialog-title>Verify OTP</h2>
+  <mat-dialog-content>
+    <p>Please enter the OTP sent to your email</p>
+    <form [formGroup]="otpForm" (ngSubmit)="verifyOTP()">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Enter OTP</mat-label>
+        <input matInput formControlName="otp" placeholder="Enter 6-digit OTP" maxlength="6">
+        <mat-error *ngIf="otpForm.get('otp')?.hasError('required')">OTP is required</mat-error>
+        <mat-error *ngIf="otpForm.get('otp')?.hasError('minlength')">OTP must be 6 digits</mat-error>
+      </mat-form-field>
+    </form>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button (click)="closeDialog()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="verifyOTP()" [disabled]="!otpForm.valid">Verify</button>
+  </mat-dialog-actions>
+</div> 

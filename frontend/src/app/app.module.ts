@@ -19,6 +19,7 @@ import { AssignDriverComponent } from './shared/assign-driver/assign-driver.comp
 import { RidehistorydialogComponent } from './shared/ridehistorydialog/ridehistorydialog.component';
 import { NotificationsService } from './Service/notifications.service';
 import { FeedbackComponent } from './shared/feedback/feedback.component';
+import { OtpDialogComponent } from './shared/otp-dialog/otp-dialog.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FeedbackComponent } from './shared/feedback/feedback.component';
     AssignDriverComponent,
     RidehistorydialogComponent,
     FeedbackComponent,
+    OtpDialogComponent,
   ],
   imports: [
     BrowserModule,

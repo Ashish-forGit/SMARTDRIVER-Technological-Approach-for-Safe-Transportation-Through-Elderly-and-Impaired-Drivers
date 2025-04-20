@@ -3,6 +3,7 @@ import { ToastrService } from 'ngx-toastr';
 import { SocketService } from 'src/app/Service/socket.service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { FeedbackComponent } from 'src/app/shared/feedback/feedback.component';
+import { OtpDialogComponent } from 'src/app/shared/otp-dialog/otp-dialog.component';
 
 @Component({
   selector: 'app-runningrequest',
@@ -85,9 +86,44 @@ export class RunningrequestComponent {
 
   //---------------ON ACCEPT RIDE REQUEST BUTTON CLICK--------------------//
   pickRide(data: any){
-    this.rideId = data._id
+    console.log('Pick Ride Data:', data);
+    console.log('User Details:', data.userDetails);
+    
+    this.rideId = data._id;
+    this.driverId = data.driverId;
 
-    this.pickedrunningrequest(this.driverId, this.rideId);
+    // Get user email from the data object - try different possible field names
+    const userEmail = data.userDetails?.useremail || data.userDetails?.email || data.userDetails?.userEmail;
+    
+    if (!userEmail) {
+      console.error('User email not found in data:', data);
+      console.error('User details:', data.userDetails);
+      this.toastr.error('User email not found', 'Error');
+      return;
+    }
+
+    console.log('Sending OTP to:', userEmail);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    dialogConfig.data = {
+      userEmail: userEmail
+    };
+
+    const dialogRef = this.dialog.open(OtpDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        // OTP verified successfully, proceed with pickup
+        this.pickedrunningrequest(this.driverId, this.rideId);
+        this.toastr.success('Ride pickup confirmed', 'Success');
+      } else {
+        // OTP verification failed or dialog was closed
+        this.toastr.error('OTP verification failed', 'Error');
+      }
+    });
   }
 
   //---------------ON ACCEPT RIDE REQUEST BUTTON CLICK--------------------//

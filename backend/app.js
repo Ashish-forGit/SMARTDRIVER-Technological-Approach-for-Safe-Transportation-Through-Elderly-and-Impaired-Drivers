@@ -45,7 +45,7 @@ const confirmRideRouter = require("./routes/confirmride");
 const ridehistoryRouter = require("./routes/ridehistory")
 const credentials = require('./routes/credentials')
 const feedbackRoutes = require('./routes/feedback')
-
+const otpRoutes = require('./routes/otp')
 
 app.use(fetchAdmin);
 app.use(loginRoutes);
@@ -64,8 +64,7 @@ app.use(confirmRideRouter);
 app.use(ridehistoryRouter)
 app.use(credentials)
 app.use(feedbackRoutes)
-
-
+app.use(otpRoutes)
 
 app.get("/", async (req, res) => {
   res.json({

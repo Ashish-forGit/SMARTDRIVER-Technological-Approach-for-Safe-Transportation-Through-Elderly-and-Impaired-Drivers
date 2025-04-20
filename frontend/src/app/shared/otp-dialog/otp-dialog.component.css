@@ -1,0 +1,29 @@
+.otp-dialog {
+  padding: 20px;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.otp-dialog h2 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.otp-dialog p {
+  margin-bottom: 20px;
+  color: #666;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+mat-dialog-actions {
+  padding: 20px 0;
+  justify-content: flex-end;
+}
+
+button {
+  margin-left: 10px;
+} 
