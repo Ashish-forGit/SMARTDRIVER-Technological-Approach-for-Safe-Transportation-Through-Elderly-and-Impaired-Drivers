@@ -10,7 +10,8 @@
 
   
   .hero {
-    background-image: url('https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    /* background-image: url('https://images.unsplash.com/photo-1517026575980-3e1e2dedeab4?q=80&w=1998&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); */
+    background-image: url('https://media.istockphoto.com/id/1644775768/photo/an-unrecognizable-businessman-driving-his-car.jpg?s=612x612&w=0&k=20&c=pWqIRpn3nH2AItVB4J5e5F1_AB4Fv6PtoyYUEMMpLaw=');
     background-size: cover;
     background-position: center;
     text-align: center;

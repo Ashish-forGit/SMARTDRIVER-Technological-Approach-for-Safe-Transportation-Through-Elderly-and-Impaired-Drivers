@@ -6,7 +6,7 @@
     <form id="createForm" [formGroup]="loginForm" (ngSubmit)="onLogin()">
         <h3 id="loginhead">SMART DRIVER</h3>
 
-        <label for="username"style="color: aliceblue;">Username</label>
+        <label for="username"style="color: black;">Username</label>
         <input type="email" class="form-control" placeholder="Email or Phone" formControlName="email"
         [class.is-invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)" />
       <div *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)"
