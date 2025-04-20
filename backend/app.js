@@ -46,7 +46,10 @@ const ridehistoryRouter = require("./routes/ridehistory")
 const credentials = require('./routes/credentials')
 const feedbackRoutes = require('./routes/feedback')
 const otpRoutes = require('./routes/otp')
+const authRoutes = require('./routes/auth')
 
+// Mount routes
+app.use('/auth', authRoutes);  // Mount auth routes with /auth prefix
 app.use(fetchAdmin);
 app.use(loginRoutes);
 app.use(registerRoutes);
@@ -58,13 +61,13 @@ app.use(cityRoutes);
 app.use(userRoutes);
 app.use(driverRoutes);
 app.use(pricingRoutes);
-app.use(settingRouter)
+app.use(settingRouter);
 app.use(createRideRoutes);
 app.use(confirmRideRouter);
-app.use(ridehistoryRouter)
-app.use(credentials)
-app.use(feedbackRoutes)
-app.use(otpRoutes)
+app.use(ridehistoryRouter);
+app.use(credentials);
+app.use(feedbackRoutes);
+app.use(otpRoutes);
 
 app.get("/", async (req, res) => {
   res.json({

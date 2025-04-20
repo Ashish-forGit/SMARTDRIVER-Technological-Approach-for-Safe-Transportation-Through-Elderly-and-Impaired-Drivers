@@ -3,7 +3,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 
-
 import { AppComponent } from './app.component';
 import { AuthInterceptor } from './auth.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +28,7 @@ import { OtpDialogComponent } from './shared/otp-dialog/otp-dialog.component';
     AssignDriverComponent,
     RidehistorydialogComponent,
     FeedbackComponent,
-    OtpDialogComponent,
+    OtpDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -41,10 +40,13 @@ import { OtpDialogComponent } from './shared/otp-dialog/otp-dialog.component';
     MaterialModule,
     ToastrModule.forRoot(),
     DashboardModule,
-    AuthModule,
-    
+    AuthModule
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true}, AuthService, NotificationsService],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass:AuthInterceptor, multi:true},
+    AuthService,
+    NotificationsService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
