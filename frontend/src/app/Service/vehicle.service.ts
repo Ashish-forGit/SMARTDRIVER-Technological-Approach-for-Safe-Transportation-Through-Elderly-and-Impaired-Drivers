@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class VehicleService {
 
-  private serverUrl = 'http://localhost:4000';
+  private serverUrl = 'https://smartdriver-technological-approach-for.onrender.com/';
   // private serverUrl = 'http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com';
 
 

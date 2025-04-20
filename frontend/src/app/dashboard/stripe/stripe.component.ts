@@ -68,7 +68,7 @@ export class StripeComponent {
         console.log("Token:", token);
         
   
-        const response = await fetch(`http://localhost:4000addcard/${id}`, {
+        const response = await fetch(`https://smartdriver-technological-approach-for.onrender.com/addcard/${id}`, {
           method: 'POST',
           headers: {
             'Content-type': 'Application/json'
@@ -120,7 +120,7 @@ export class StripeComponent {
       console.log(customerId);
       console.log(cardId);
       this.http
-        .patch(`http://localhost:4000setdefaultcard/${customerId}`, { cardId })
+        .patch(`https://smartdriver-technological-approach-for.onrender.com/setdefaultcard/${customerId}`, { cardId })
         .subscribe(
           (data:any) => {
             console.log(data);
