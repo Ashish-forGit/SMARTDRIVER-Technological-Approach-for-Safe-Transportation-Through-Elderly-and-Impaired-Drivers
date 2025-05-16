@@ -77,30 +77,33 @@ driverRoutes.post(
 
     console.log(req.body)
     let newDriver;
-    try {
-      if (!req.file) {
-        newDriver = new driverModel({
-          drivername,
-          driveremail,
-          countrycode,
-          driverphone,
-          city,
-          drivinglicense,
-          aadharcard, // ✅ add it to the object
-        });
-      } else {
-        const profile = req.file.filename;
-        newDriver = new driverModel({
-          profile,
-          drivername,
-          driveremail,
-          countrycode,
-          driverphone,
-          city,
-          drivinglicense // ✅ add it here too
-        });
-      }
-      console.log(newDriver)
+      try {
+        if (!req.file) {
+          console.log("req.body without file:", req.body);
+          newDriver = new driverModel({
+            drivername,
+            driveremail,
+            countrycode,
+            driverphone,
+            city,
+            drivinglicense,
+            aadharcard, // ✅ add it to the object
+          });
+        } else {
+          console.log("req.body with file:", req.body);
+          const profile = req.file.filename;
+          newDriver = new driverModel({
+            profile,
+            drivername,
+            driveremail,
+            countrycode,
+            driverphone,
+            city,
+            drivinglicense, // ✅ add it here too
+            aadharcard, // add aadharcard here to fix validation error
+          });
+        }
+        console.log(newDriver)
 
       await newDriver.save();
       res.status(201).json({
