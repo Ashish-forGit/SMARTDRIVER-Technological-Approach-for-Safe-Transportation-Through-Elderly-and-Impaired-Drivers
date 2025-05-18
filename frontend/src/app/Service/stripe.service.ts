@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StripeService {
-  url = "https://smartdriver-technological-approach-for.onrender.com"
+  url = "http://localhost:4000"
   // private serverUrl = 'http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com';
 
 
