@@ -7,7 +7,7 @@
           <form class="container" [formGroup]="vehicleForm"  (ngSubmit)="addVehicle()">
 
             <div class="mb-3">
-              <label class="form-label d-flex justify-content-start">Vehicle Type/Vehicle Number</label>
+              <label class="form-label d-flex justify-content-start">Vehicle Details (KIA(DL 01 SJ 1234))</label>
               <input type="text" class="form-control" formControlName="vehicleName"
                 [class.is-invalid]="vehicleForm.get('vehicleName')?.invalid && (vehicleForm.get('vehicleName')?.touched || vehicleForm.get('vehicleName')?.dirty)" />
               <div *ngIf="vehicleForm.get('vehicleName')?.invalid && (vehicleForm.get('vehicleName')?.touched || vehicleForm.get('vehicleName')?.dirty)"
@@ -35,7 +35,7 @@
         <div id="formContainer">
           <form class="container" [formGroup]="vehicleForm"  (ngSubmit)="updateVehicle()">
             <div class="mb-3">
-              <label class="form-label d-flex justify-content-start">Vehicle Type/Vehicle Number</label>
+              <label class="form-label d-flex justify-content-start">Vehicle Details (KIA(DL 01 SJ 1234))</label>
               <input type="text" class="form-control" formControlName="vehicleName" />
             </div>
             <div class="mb-3">
