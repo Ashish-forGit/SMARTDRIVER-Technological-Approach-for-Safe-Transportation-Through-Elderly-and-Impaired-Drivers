@@ -28,15 +28,24 @@
       <mat-list-item>
           <button  [matMenuTriggerFor]="lvl3master" color="accent"  mat-button><mat-icon>monetization_on</mat-icon> PRICING</button>
           <mat-menu #lvl3master="matMenu">
-            <button  routerLink="country" mat-menu-item><mat-icon>language</mat-icon>Country</button>
-            <button routerLink="city"  mat-menu-item><mat-icon>language</mat-icon>City</button>
+            <!-- <button  routerLink="country" mat-menu-item><mat-icon>language</mat-icon>Country</button>
+            <button routerLink="city"  mat-menu-item><mat-icon>language</mat-icon>City</button> -->
             <button  routerLink="vehicletype" mat-menu-item><mat-icon> directions_car</mat-icon> Vehicle type</button>
             <button  routerLink="vehiclepricing" mat-menu-item><mat-icon> monetization_on</mat-icon>Vehicle Pricing</button>
         </mat-menu>
       </mat-list-item>
+
       <mat-list-item>
-          <button color="accent" routerLink="setting" mat-button><mat-icon>settings</mat-icon> SETTINGS</button>
+          <button [matMenuTriggerFor]="lvl3master2" color="accent"  mat-button><mat-icon>monetization_on</mat-icon> SETTINGS</button>
+          <mat-menu #lvl3master2="matMenu">
+            <button  routerLink="country" mat-menu-item><mat-icon>language</mat-icon>Country</button>
+            <button routerLink="city"  mat-menu-item><mat-icon>language</mat-icon>City</button>
+
+            <!-- <button  routerLink="vehicletype" mat-menu-item><mat-icon> directions_car</mat-icon> Vehicle type</button>
+            <button  routerLink="vehiclepricing" mat-menu-item><mat-icon> monetization_on</mat-icon>Vehicle Pricing</button> -->
+        </mat-menu>
       </mat-list-item>
+
   </mat-nav-list>
   </mat-drawer>
   <mat-drawer-content>
