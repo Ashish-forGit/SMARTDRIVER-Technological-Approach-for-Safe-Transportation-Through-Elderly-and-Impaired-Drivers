@@ -6,7 +6,6 @@ const cityModel = require('../models/city')
 //  API to register city data in database.
 cityRoutes.post("/cityadd", async (req, res) => {
   try {
-    // const citydata = new cityModel(req.body);
 
       citydata = new cityModel({
         country_id: req.body.country_id,
