@@ -19,13 +19,14 @@ const transporter = nodemailer.createTransport({
   tls: {
     rejectUnauthorized: false
   }
-  
+
 });
 
 // Generate OTP
 function generateOTP() {
   return crypto.randomInt(100000, 999999).toString();
 }
+
 
 // Send OTP
 router.post('/send-otp', async (req, res) => {
