@@ -28,7 +28,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let data of assignedArray">
-                <td><img src="http://localhost:4000{{data.userDetails.profile}}" alt="driver-profile"></td>
+                <td><img src="https://smartdriver-technological-approach-for.onrender.com{{data.userDetails.profile}}" alt="driver-profile"></td>
                 <!-- <td><img src="http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com/{{data.userDetails.profile}}" alt="driver-profile"></td> -->
                 <td>{{data.userDetails.username}}</td>
                 <td>{{data.userDetails.userphone}}</td>
@@ -39,7 +39,7 @@
                 <td class="fixed-width">{{data.startLocation}}</td>
                 <td class="fixed-width">{{data.endLocation}}</td>
                 <td>{{data.serviceType}}</td>
-                <td><img src="http://localhost:4000{{data.vehicleDetails.vehicleImage}}" alt="vehicle-image"></td>
+                <td><img src="https://smartdriver-technological-approach-for.onrender.com{{data.vehicleDetails.vehicleImage}}" alt="vehicle-image"></td>
                 <!-- <td><img src="http://eberride-env.eba-83w3w3ik.ap-south-1.elasticbeanstalk.com/{{data.vehicleDetails.vehicleImage}}" alt="vehicle-image"></td> -->
                 <td>{{data.status}}</td>
                 <td [ngSwitch]="data.ridestatus">
